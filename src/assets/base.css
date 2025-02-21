@@ -1,3 +1,24 @@
 body {
   letter-spacing: 1.8px;
 }
+
+/* 修改滚动条整体样式 */
+::-webkit-scrollbar {
+  width: 8px; /* 垂直滚动条的宽度 */
+  height: 8px; /* 水平滚动条的高度 */
+}
+
+/* 滚动条的轨道 */
+::-webkit-scrollbar-track {
+  background: #f3f4f6; /* 轨道的背景色 */
+}
+
+/* 滚动条的滑块 */
+::-webkit-scrollbar-thumb {
+  background: #d1d5db; /* 滑块的背景色 */
+}
+
+/* 滑块在悬停时的样式 */
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af; /* 悬停时的背景色 */
+}

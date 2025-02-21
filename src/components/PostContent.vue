@@ -20,4 +20,8 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+:deep(code) {
+  font-size: 12px !important;
+}
+</style>

@@ -1,8 +1,10 @@
 <template>
-  <div class="w-full h-screen">
-    <div class="p-4 max-w-screen-sm m-auto min-h-screen font-sans font-thin text-zinc-800">
-      <header class="text-center my-12">Leo</header>
-      <RouterView />
+  <div>
+    <div class="max-w-screen-sm m-auto font-sans font-thin text-zinc-800">
+      <header class="text-center mt-12"><RouterLink to="/">Leo</RouterLink></header>
+      <div class="py-16">
+        <RouterView />
+      </div>
     </div>
     <div class="fixed bottom-0 right-0 mb-4 mr-4">
       <a href="https://buttercms.com">
@@ -13,7 +15,7 @@
 </template>
 
 <script setup>
-import { RouterView } from 'vue-router'
+import { RouterView, RouterLink } from 'vue-router'
 </script>
 
 <style scoped></style>

@@ -1,25 +1,75 @@
-// plugins/highlight.js
-import Hljs from 'highlight.js'
-import 'highlight.js/styles/atom-one-dark.css' // 你可以选择其他主题
+import { createHighlighterCore } from 'shiki/core'
+import { createJavaScriptRegexEngine } from 'shiki/engine/javascript'
+import oneDarkPro from 'shiki/themes/one-dark-pro'
+
+// 单例高亮器实例
+let highlighter = null
 
 export default {
-  install(app) {
-    // 自定义指令 v-highlight
+  async install(app) {
+    // 初始化高亮器（只执行一次）
+    if (!highlighter) {
+      highlighter = await createHighlighterCore({
+        themes: [oneDarkPro],
+        langs: [
+          import('shiki/langs/javascript'),
+          import('shiki/langs/html'),
+          import('shiki/langs/css'),
+          import('shiki/langs/json'),
+          import('shiki/langs/shell'),
+          import('shiki/langs/vue'),
+        ],
+        engine: createJavaScriptRegexEngine(),
+      })
+    }
+
     app.directive('highlight', {
-      // 在元素被挂载到 DOM 之前
-      beforeMount(el) {
-        let blocks = el.querySelectorAll('pre code')
-        for (let i = 0; i < blocks.length; i++) {
-          Hljs.highlightBlock(blocks[i])
-        }
+      async mounted(el) {
+        await processCodeBlocks(el, highlighter)
       },
-      // 在元素更新后调用
-      updated(el) {
-        let blocks = el.querySelectorAll('pre code')
-        for (let i = 0; i < blocks.length; i++) {
-          Hljs.highlightBlock(blocks[i])
-        }
+      async updated(el) {
+        await processCodeBlocks(el, highlighter)
       },
     })
   },
+}
+
+// 统一处理代码块
+async function processCodeBlocks(el, highlighter) {
+  const blocks = el.querySelectorAll('pre')
+
+  for (const block of blocks) {
+    // 跳过已处理过的块
+
+    try {
+      const code = block.textContent.trim()
+      const lang = detectLanguage(block)
+
+      // 使用高亮器实例
+      const html = highlighter.codeToHtml(code, {
+        lang,
+        theme: 'one-dark-pro',
+      })
+
+      // 创建一个新的 wrapper div 包含原来的 pre 的 class
+      const wrapper = document.createElement('div')
+      wrapper.className = block.className // 保留原来 pre 的 class
+      wrapper.innerHTML = html // 插入高亮后的代码
+
+      // 保留原 pre 的样式并替换内容
+      block.replaceWith(wrapper)
+    } catch (error) {
+      console.warn('代码高亮失败:', error)
+      block.style.color = 'red' // 错误可视化
+    }
+  }
+}
+
+// 语言检测逻辑
+function detectLanguage(block) {
+  // 查找以 language- 开头的类名
+  const langClass = block ? [...block.classList].find((c) => c.startsWith('language-')) : null
+
+  // 如果没有找到匹配的类，默认返回 'javascript'
+  return langClass ? langClass.replace('language-', '') : 'javascript'
 }

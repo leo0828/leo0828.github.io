@@ -28,4 +28,9 @@ export default {
 :deep(code) {
   font-size: 12px !important;
 }
+
+:deep(pre) {
+  padding: 12px;
+  overflow-y: auto;
+}
 </style>

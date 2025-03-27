@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="max-w-screen-sm m-auto font-sans font-thin text-zinc-800">
+    <div class="max-w-screen-md m-auto font-sans font-thin text-zinc-800">
       <header class="text-center mt-12"><RouterLink to="/">Leo</RouterLink></header>
       <div class="py-16 px-7">
         <RouterView />

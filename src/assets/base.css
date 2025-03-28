@@ -1,5 +1,13 @@
+@font-face {
+  font-family: 'Noto Sans SC';
+  src: url('/fonts/NotoSansSC-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900; /* 可变字体的范围，表示 100 到 900 的字重 */
+  font-display: swap;
+}
+
 body {
-  letter-spacing: 1.8px;
+  font-family: 'Noto Sans SC', sans-serif;
+  font-weight: 300;
 }
 
 /* 修改滚动条整体样式 */

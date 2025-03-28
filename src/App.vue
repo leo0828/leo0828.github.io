@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="max-w-screen-md m-auto font-sans font-thin text-zinc-800">
+    <div class="max-w-screen-md m-auto text-zinc-800">
       <header class="flex flex-col items-center justify-center mt-12">
         <a href="https://github.com/leo0828" target="_blank" class="flex items-center gap-2">
           <img class="w-4 h-4" src="/github-mark.png" alt="" srcset="" />Leo

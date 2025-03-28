@@ -4,7 +4,7 @@
       <div class="text-zinc-400 text-xs mb-2 sm:mb-0 sm:absolute sm:left-0 sm:top-8.5">
         {{ new Date(post.published).toLocaleDateString() }}
       </div>
-      <h2 class="hover:text-sky-500 font-light sm:text-xl transition duration-300 sm:ml-24">
+      <h2 class="hover:text-sky-500 sm:text-xl transition duration-300 sm:ml-24">
         <RouterLink :to="`/detail/${post.slug}`">
           {{ post.title }}
         </RouterLink>

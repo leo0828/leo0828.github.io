@@ -23,13 +23,8 @@ export default {
       })
     }
 
-    app.directive('highlight', {
-      async mounted(el) {
-        await processCodeBlocks(el, highlighter)
-      },
-      async updated(el) {
-        await processCodeBlocks(el, highlighter)
-      },
+    app.directive('highlight', async (el) => {
+      await processCodeBlocks(el, highlighter)
     })
   },
 }

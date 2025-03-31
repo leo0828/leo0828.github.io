@@ -2,7 +2,6 @@
   font-family: 'Noto Sans SC';
   src: url('/fonts/NotoSansSC-VariableFont_wght.ttf') format('truetype');
   font-weight: 100 900; /* 可变字体的范围，表示 100 到 900 的字重 */
-  font-display: swap;
 }
 
 body {

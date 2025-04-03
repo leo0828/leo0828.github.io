@@ -17,7 +17,7 @@ body {
 
 /* 滚动条的轨道 */
 ::-webkit-scrollbar-track {
-  background: #f3f4f6; /* 轨道的背景色 */
+  background: #ffffff; /* 轨道的背景色 */
 }
 
 /* 滚动条的滑块 */

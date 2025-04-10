@@ -6,7 +6,7 @@
     </div>
     <h1 class="text-2xl sm:text-3xl font-normal mb-9">{{ post.title }}</h1>
     <div
-      class="text-zinc-500 text-sm sm:text-base space-y-4 sm:space-y-6"
+      class="text-zinc-800 text-sm sm:text-base space-y-4 sm:space-y-6"
       v-highlight
       v-html="post.body"
     ></div>

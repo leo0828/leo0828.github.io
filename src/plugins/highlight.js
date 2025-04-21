@@ -18,6 +18,7 @@ export default {
           import('shiki/langs/json'),
           import('shiki/langs/shell'),
           import('shiki/langs/vue'),
+          import('shiki/langs/markdown'),
         ],
         engine: createJavaScriptRegexEngine(),
       })

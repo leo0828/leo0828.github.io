@@ -8,9 +8,7 @@ const api = axios.create({
 // 在请求拦截器中添加 auth_token
 api.interceptors.request.use(
   (config) => {
-    // e0f36dd51d2aa60e92d4db1123baed7e247e5707
-    // 429373a7b8f11897a085ab4a769759108725b048
-    const token = '429373a7b8f11897a085ab4a769759108725b048'
+    const token = import.meta.env.VITE_BUTTER_CMS_TOKEN
     if (token) {
       config.params = config.params || {}
       config.params.auth_token = token

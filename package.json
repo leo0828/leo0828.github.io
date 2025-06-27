@@ -7,18 +7,20 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "deploy": "gh-pages -d .output/public"
   },
   "dependencies": {
     "@nuxt/eslint": "1.4.1",
     "eslint": "^9.0.0",
     "nuxt": "^3.17.5",
+    "nuxt-shiki": "^0.3.1",
     "vue": "^3.5.17",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
     "@unocss/nuxt": "^66.3.2",
-    "shiki": "^3.7.0",
+    "gh-pages": "^6.3.0",
     "unocss": "^66.3.2"
   }
 }

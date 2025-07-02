@@ -12,7 +12,6 @@
     </h1>
     <!-- eslint-disable vue/no-v-html -->
     <div
-      v-if="highlightedBody"
       ref="contentRef"
       class="text-zinc-800 text-sm sm:text-base space-y-4 sm:space-y-6"
       v-html="highlightedBody"
@@ -22,8 +21,6 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
-
 const props = defineProps({
   postBody: {
     type: String,
@@ -43,13 +40,18 @@ const { $marked } = useNuxtApp();
 const contentRef = ref(null);
 const highlightedBody = ref("");
 
-const detectLanguage = (block) => {
-  // 查找以 language- 开头的类名
-  const langClass = block
-    ? [...block.classList].find((c) => c.startsWith("language-"))
-    : null;
+// 缓存 highlighter 实例
+let highlighterPromise = null;
+const getHighlighter = async () => {
+  if (!highlighterPromise) {
+    highlighterPromise = getShikiHighlighter();
+  }
+  return highlighterPromise;
+};
 
-  // 如果没有找到匹配的类，默认返回 'javascript'
+const detectLanguage = (classList) => {
+  if (!classList) return "javascript";
+  const langClass = [...classList].find((c) => c.startsWith("language-"));
   return langClass ? langClass.replace("language-", "") : "javascript";
 };
 
@@ -57,25 +59,26 @@ watch(
   () => props.postBody,
   async (body) => {
     if (!body) {
+      highlightedBody.value = "";
       return;
     }
 
-    body = $marked(body);
-    // 解析并高亮
+    let html = $marked(body);
     const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = body;
-    const codeBlocks = tempDiv.querySelectorAll("pre");
+    tempDiv.innerHTML = html;
+    const preBlocks = tempDiv.querySelectorAll("pre");
 
-    for (const block of codeBlocks) {
-      const code = block.textContent.trim();
-      const lang = detectLanguage(block);
-
-      const highlighter = await getShikiHighlighter();
-      const result = highlighter.highlight(code, { lang });
-      const wrapper = document.createElement("div");
-
-      wrapper.innerHTML = result;
-      block.replaceWith(wrapper.firstChild);
+    if (preBlocks.length > 0) {
+      const highlighter = await getHighlighter();
+      for (const block of preBlocks) {
+        const codeEl = block.querySelector("code");
+        const code = codeEl ? codeEl.textContent.trim() : "";
+        const lang = detectLanguage(codeEl?.classList);
+        const result = highlighter.highlight(code, { lang });
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = result;
+        block.replaceWith(wrapper.firstChild);
+      }
     }
 
     highlightedBody.value = tempDiv.innerHTML;

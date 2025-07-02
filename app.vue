@@ -4,6 +4,10 @@
   </NuxtLayout>
 </template>
 
-<script setup></script>
+<script setup>
+useHead({
+  titleTemplate: (title) => (title ? `${title} | Leo Blog` : "Leo Blog"),
+});
+</script>
 
 <style></style>

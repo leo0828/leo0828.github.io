@@ -16,7 +16,7 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
   runtimeConfig: {
     public: {
-      apiToken: process.env.API_TOKEN, // butter cms token
+      apiKey: process.env.API_KEY, //
       apiBase: process.env.NUXT_PUBLIC_API_BASE, // butter cms API
     },
   },

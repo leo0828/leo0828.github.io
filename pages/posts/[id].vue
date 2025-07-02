@@ -3,7 +3,12 @@
     <div v-if="loading" class="flex justify-center pt-20">
       <Loader />
     </div>
-    <PostContent v-else :post="post" />
+    <PostContent
+      v-else
+      :post-title="post.title"
+      :post-body="post.body_markdown"
+      :post-updated="post.edited_at"
+    />
   </section>
 </template>
 
@@ -16,8 +21,8 @@ const api = useApi();
 const getPosts = async () => {
   loading.value = true;
   try {
-    const res = await api.get(`/posts/${route.params.id}`);
-    post.value = res.data;
+    const res = await api.get(`/articles/${route.params.id}`);
+    post.value = res;
   } catch (error) {
     console.log(error);
   } finally {

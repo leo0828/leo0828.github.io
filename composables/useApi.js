@@ -6,7 +6,7 @@ export default function useApi() {
       return $fetch(url, {
         baseURL: config.public.apiBase,
         params: {
-          auth_token: config.public.apiToken,
+          api_key: config.public.apiKey,
           ...options.params,
         },
       });

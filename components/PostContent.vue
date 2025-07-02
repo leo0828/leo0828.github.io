@@ -1,11 +1,14 @@
 <template>
   <div class="tracking-wide">
-    <div v-if="post" class="text-zinc-400 text-sm mb-6 flex items-center">
+    <div
+      v-if="postUpdated"
+      class="text-zinc-400 text-sm mb-6 flex items-center"
+    >
       <span class="h-4 w-0.5 rounded-full bg-zinc-200 mr-3" />
-      更新于：{{ new Date(post.updated).toLocaleString() }}
+      更新于：{{ new Date(postUpdated).toLocaleString() }}
     </div>
-    <h1 v-if="post" class="text-2xl sm:text-3xl font-medium mb-9">
-      {{ post.title }}
+    <h1 v-if="postTitle" class="text-2xl sm:text-3xl font-medium mb-9">
+      {{ postTitle }}
     </h1>
     <!-- eslint-disable vue/no-v-html -->
     <div
@@ -22,12 +25,21 @@
 import { ref, watch } from "vue";
 
 const props = defineProps({
-  post: {
-    type: Object,
-    default: () => {},
+  postBody: {
+    type: String,
+    default: "",
+  },
+  postTitle: {
+    type: String,
+    default: "",
+  },
+  postUpdated: {
+    type: [String, Number],
+    default: "",
   },
 });
 
+const { $marked } = useNuxtApp();
 const contentRef = ref(null);
 const highlightedBody = ref("");
 
@@ -42,11 +54,13 @@ const detectLanguage = (block) => {
 };
 
 watch(
-  () => props.post && props.post.body,
+  () => props.postBody,
   async (body) => {
     if (!body) {
       return;
     }
+
+    body = $marked(body);
     // 解析并高亮
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = body;

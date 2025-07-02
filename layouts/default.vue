@@ -5,7 +5,6 @@
       <div class="py-16 px-7 flex-1">
         <NuxtPage />
       </div>
-      <MyFooter />
     </div>
     <BackToTop />
   </div>

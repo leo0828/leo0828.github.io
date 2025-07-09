@@ -30,9 +30,7 @@ const getPosts = async () => {
   }
 };
 
-onMounted(() => {
-  getPosts();
-});
+getPosts();
 </script>
 
 <style scoped></style>

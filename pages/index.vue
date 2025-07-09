@@ -15,7 +15,7 @@
           {{ new Date(post.published_at).toLocaleDateString() }}
         </div>
         <h2
-          class="hover:text-sky-500 sm:text-xl transition duration-300 sm:ml-24 tracking-wide"
+          class="sm:text-xl transition duration-300 sm:ml-24 tracking-wide hover:translate-x-2 hover:text-sky-500"
         >
           <NuxtLink :to="`/posts/${post.id}`">
             {{ post.title }}

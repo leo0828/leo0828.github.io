@@ -101,4 +101,14 @@ watch(
 :deep(strong) {
   font-weight: 500;
 }
+
+:deep(li) {
+  margin: 8px 0;
+  list-style: disc inside;
+}
+
+:deep(h2) {
+  font-size: 1.25rem;
+  font-weight: 400;
+}
 </style>
